@@ -1,18 +1,45 @@
 import os
 import tkinter as tk
+from PIL import Image, ImageTk
 
 class GUI: # implementation of gui
     def main(self):
         self.root = tk.Tk()
         self.root.title("QuickDelete")
         self.root.geometry("400x300")
+        self.background("SAE.jpg")
         self.Temp_button()
+        self.PreFetch_button()
         self.root.mainloop()
     
+    def background(self, image_path):
+        image = Image.open(image_path)
+        photo = ImageTk.PhotoImage(image)
+        
+        background_label = tk.Label(self.root, image = photo)
+        background_label.place(relheight=1, relwidth=1)
+        
+        background_label.image = photo
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
     def Temp_button(self):
         self.button = tk.Button(self.root, text = "Delete Temp Files", command = lambda : self.delete_temp_files(r'C:\Windows\Temp'))
-        self.button.pack()
-    
+        self.button.place(relx=0.5, rely=0.4, anchor="center")
+    def PreFetch_button(self):
+        self.sec_button = tk.Button(self.root, text = "Delete Prefetch Files", command = lambda : self.delete_preFetch_files(r'C:\Windows\Prefetch') )
+        self.sec_button.place(relx=0.5, rely=0.5, anchor="center")
+        
+        
+        
     def delete_temp_files(self,path_temp):  
         os.chdir(path_temp)   # change directory to the temp folder
         list_temp = os.listdir(path_temp)  #  use list to get all file and delete
@@ -42,20 +69,7 @@ class GUI: # implementation of gui
             print("file '% s' deleted" % file)
             
         
-def main():
-    while True:
-       
-        choice = int(input('Delete Temp files for Prefetch?\n\t 1 for Temp\n\t 2 for Prefetch\nEnter Here: '))
-        match choice:
-            case 1:
-                    delete_temp_files(r'C:\Windows\Temp')
-            case 2:
-                    delete_preFetch_files(r'C:\Windows\Prefetch')
-            case _:
-                print("invalid choice")
-                continue
-        False
-                
+
             
             
     
